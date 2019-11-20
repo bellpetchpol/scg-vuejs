@@ -7,6 +7,7 @@
         <input type="number" v-model="nNumber" class="form-control" id="nNumber" placeholder="Enter N Number">
       </div>
       <button @click="submit" class="btn btn-primary">Submit</button>
+      <p>{{result}}</p>
     </div>
   </div>
 </template>
@@ -19,11 +20,15 @@ export default {
   data () {
     return {
       nNumber: 0,
+      result: null
     }
   },
   methods:{
     submit(){
       this.findNNumber(this.nNumber)
+      .then(res => {
+        this.result = res
+      })
     },
     async findNNumber(n){
       try {
