@@ -6,7 +6,14 @@
         <label for="nNumber">Please input N Number (eg 2,4,9,..)</label>
         <input type="number" v-model="nNumber" class="form-control" id="nNumber" placeholder="Enter N Number">
       </div>
-      <button @click="submit" class="btn btn-primary">Submit</button>
+      <b-button @click="submit" :disabled="isLoading" block variant="primary">
+        <b-spinner v-if="isLoading" small></b-spinner>
+        <span v-if="!isLoading" >Submit</span>
+      </b-button>
+      
+    </div>
+    <div class="pt-3" v-if="result.length > 0">
+      <h3>Result</h3>
       <p>{{result}}</p>
     </div>
   </div>
@@ -20,14 +27,22 @@ export default {
   data () {
     return {
       nNumber: 0,
-      result: null
+      result: [],
+      isLoading: false
     }
   },
   methods:{
     submit(){
+      this.isLoading = true
       this.findNNumber(this.nNumber)
       .then(res => {
-        this.result = res
+        console.log('res',res)
+        this.result = res.data.data
+        this.isLoading = false
+      })
+      .catch(err =>{
+        this.result = err+' If you input 0 try increase it'
+        this.isLoading = false
       })
     },
     async findNNumber(n){
@@ -40,8 +55,11 @@ export default {
         }
         const response = await axios.post('/find_n_number',formData);
         console.log(response);
+        
+        return response
       } catch (error) {
         console.error(error);
+        return error
       }
     },
   }
