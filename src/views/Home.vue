@@ -1,18 +1,44 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="home pt-5">
+    <h1>Find N Number</h1>
+    <div class="text-left">
+      <div class="form-group">
+        <label for="nNumber">Please input N Number (eg 2,4,9,..)</label>
+        <input type="number" v-model="nNumber" class="form-control" id="nNumber" placeholder="Enter N Number">
+      </div>
+      <button @click="submit" class="btn btn-primary">Submit</button>
+    </div>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
+import axios from '@/axiosSCG.js'
 export default {
   name: 'home',
-  components: {
-    HelloWorld
+  data () {
+    return {
+      nNumber: 0,
+    }
+  },
+  methods:{
+    submit(){
+      this.findNNumber(this.nNumber)
+    },
+    async findNNumber(n){
+      try {
+        const formData = {
+          action: 'all',
+          body: {
+            numberOfPosition: n
+          }
+        }
+        const response = await axios.post('/find_n_number',formData);
+        console.log(response);
+      } catch (error) {
+        console.error(error);
+      }
+    },
   }
 }
 </script>
