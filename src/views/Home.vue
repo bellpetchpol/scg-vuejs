@@ -34,16 +34,29 @@ export default {
   methods:{
     submit(){
       this.isLoading = true
-      this.findNNumber(this.nNumber)
-      .then(res => {
-        console.log('res',res)
-        this.result = res.data.data
+      this.nNumber = parseInt(this.nNumber).toString()
+      if (this.nNumber == 0) {
+        this.result = 'If you input 0 try increase it'
         this.isLoading = false
-      })
-      .catch(err =>{
-        this.result = err+' If you input 0 try increase it'
-        this.isLoading = false
-      })
+      } else {
+        if(localStorage.getItem('scg_n_'+this.nNumber)) {
+          this.result = JSON.parse(localStorage.getItem('scg_n_'+this.nNumber))
+          this.isLoading = false
+        } else {
+          this.findNNumber(this.nNumber)
+          .then(res => {
+            console.log('res',res)
+            this.result = res.data.data
+            localStorage.setItem('scg_n_'+this.nNumber, JSON.stringify(this.result))
+            this.isLoading = false
+          })
+          .catch(err =>{
+            this.result = [err+' If you input 0 try increase it']
+            this.isLoading = false
+          })
+        }
+      }
+      
     },
     async findNNumber(n){
       try {
