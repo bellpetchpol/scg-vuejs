@@ -9,6 +9,7 @@
             <b-navbar-nav>
                 <b-nav-item href="#/">Find N Number</b-nav-item>
                 <b-nav-item href="#/place_search">Place Search</b-nav-item>
+                <b-nav-item href="#/cv">About me - CV</b-nav-item>
             </b-navbar-nav>
 
         </b-collapse>

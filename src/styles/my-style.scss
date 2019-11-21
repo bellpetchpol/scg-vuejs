@@ -1,0 +1,14 @@
+@import "~bootstrap/scss/vendor/rfs";
+$enable-responsive-font-sizes:true;
+.title {
+  @include responsive-font-size(4rem);
+  margin: 0 0 .5em;
+}
+.sub-title {
+  @include responsive-font-size(1.5rem);
+  margin: 0 0 .5em;
+}
+.body-text {
+  @include responsive-font-size(1.1rem);
+  margin: 0 0 .5em;
+}
