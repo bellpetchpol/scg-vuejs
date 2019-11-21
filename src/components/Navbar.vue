@@ -7,8 +7,8 @@
 
         <b-collapse id="nav-collapse" is-nav>
             <b-navbar-nav>
-                <b-nav-item href="/">Find N Number</b-nav-item>
-                <b-nav-item href="#">Disabled</b-nav-item>
+                <b-nav-item href="#">Find N Number</b-nav-item>
+                <b-nav-item href="#/place_search">Place Search</b-nav-item>
             </b-navbar-nav>
 
         </b-collapse>
