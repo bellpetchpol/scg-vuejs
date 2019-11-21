@@ -46,16 +46,23 @@ export default {
   methods:{
     search(){
       this.isLoading = true
-      this.findRestaurantNearBangsue()
-      .then(res => {
-        console.log('res',res)
-        this.result = res.data.data
-        this.isLoading = false
-      })
-      .catch(err =>{
-        console.log(err)
-        this.isLoading = false
-      })
+        if(localStorage.getItem('scg_search_bangsue')) {
+            this.result = JSON.parse(localStorage.getItem('scg_search_bangsue'))
+            this.isLoading = false
+        } else {
+            this.findRestaurantNearBangsue()
+            .then(res => {
+                console.log('res',res)
+                this.result = res.data.data
+                localStorage.setItem('scg_search_bangsue', JSON.stringify(this.result))
+                this.isLoading = false
+            })
+            .catch(err =>{
+                console.log(err)
+                this.isLoading = false
+            })
+        }
+      
     },
     async findRestaurantNearBangsue(){
       try {
